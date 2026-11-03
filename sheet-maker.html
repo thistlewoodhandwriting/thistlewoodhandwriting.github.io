@@ -41,7 +41,7 @@ input[type=number]{width:100%;padding:7px;border:1px solid #cfcdc6;border-radius
 </style>
 </head>
 <body>
-<div class="topbar"><div class="in"><a class="brand" href="index.html">Handwriting <i>Worth Signing</i></a><span class="who"><a href="bonus.html">All bonuses</a></span></div></div>
+<div class="topbar"><div class="in"><a class="brand" href="index.html">Sign Here! <i>The Cursive Course for Adults</i></a><span class="who"><a href="bonus.html">All bonuses</a></span></div></div>
 <header>
 <span class="kick">Bonus 5</span>
 <h1>Practice Sheet Maker</h1>
@@ -82,7 +82,7 @@ Thank you so much</textarea>
 </div>
 <div class="sheetwrap" id="sheets"></div>
 </main>
-<footer>Emma R. Thistlewood · Handwriting Worth Signing · reader bonuses, for your own practice</footer>
+<footer>Emma R. Thistlewood · Sign Here! The Cursive Course for Adults · reader bonuses, for your own practice</footer>
 <script src="glyphs.js"></script>
 <script src="engine.js"></script>
 <script>
@@ -100,7 +100,7 @@ function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.set
 function newPage(n){const lab=document.createElement('p');lab.className='pgno';lab.textContent='Page '+n;$('sheets').appendChild(lab);
   const svg=document.createElementNS(NS,'svg');svg.setAttribute('class','sheet');svg.setAttribute('viewBox','0 0 8.5 11');$('sheets').appendChild(svg);CUR=svg;
   el('rect',{x:0,y:0,width:8.5,height:11,fill:'#fff'});
-  const t=el('text',{x:4.25,y:10.6,'font-size':0.11,'text-anchor':'middle',fill:'#9a9a9a','font-family':'Helvetica,Arial,sans-serif'});t.textContent='Handwriting Worth Signing  |  Practice Sheet Maker  |  page '+n;
+  const t=el('text',{x:4.25,y:10.6,'font-size':0.11,'text-anchor':'middle',fill:'#9a9a9a','font-family':'Helvetica,Arial,sans-serif'});t.textContent='Sign Here! The Cursive Course for Adults  |  Practice Sheet Maker  |  page '+n;
   return el('g',{});}
 function hl(g,y,c,w,dash){el('line',{x1:X0,x2:X1,y1:y,y2:y,stroke:c,'stroke-width':w,'stroke-dasharray':dash||''},g);}
 function guides(g,y,k,sl){ // y = baseline in page coords (down positive)
