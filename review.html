@@ -1,0 +1,23 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Step 1 · Reader bonuses</title><meta name="description" content="Reader bonuses for Handwriting Worth Signing by Emma R. Thistlewood.">
+<meta property="og:title" content="Handwriting Worth Signing: reader bonuses"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%238a4a36'/%3E%3Cpath d='M9 21c3-1 5-9 7-11s3 1 1 5-3 7 0 7 4-4 6-6' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<div class="topbar"><div class="in"><a class="brand" href="index.html">Handwriting <i>Worth Signing</i></a><span class="who">Reader bonuses</span></div></div>
+<main><div class="steps"><span class="dot on">1</span><span class="bar"></span><span class="dot">2</span><span class="step-label">&nbsp;Step 1 of 2</span></div>
+<h1>A quick <em>favor</em> first</h1>
+<p class="lead">An honest review on Amazon helps other readers find a book that gets their handwriting where they want it. Two lines are enough: what helped you, and what you would like to see improved.</p>
+<!-- REVIEW LINK: set ASIN in build.py once the paperback is live -->
+<a class="btn shine" id="review" href="https://www.amazon.com/review/create-review?asin=ASIN_PLACEHOLDER" target="_blank" rel="noopener"><span class="star">★</span> Write my review on Amazon <svg viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a>
+<div class="reveal" id="after"><div class="panel" style="margin-top:6px">
+<p style="margin-bottom:4px"><b>Done?</b> Come back here once your review is posted.</p>
+<a class="btn" href="bonus.html" id="done">I've left my review <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
+<p class="mute">All we ask is an honest review.</p>
+</main><footer><span class="who">Emma R. Thistlewood</span>Handwriting Worth Signing · reader bonuses, for your own practice</footer>
+<script>
+(function(){var K='hws_review_clicked',a=document.getElementById('after');
+function show(){a.className='reveal show'}
+try{if(localStorage.getItem(K)==='1')show()}catch(e){}
+document.getElementById('review').addEventListener('click',function(){try{localStorage.setItem(K,'1')}catch(e){}setTimeout(show,1200)});
+document.getElementById('done').addEventListener('click',function(){try{localStorage.setItem('hws_unlocked','1')}catch(e){}});
+})();
+</script></body></html>
