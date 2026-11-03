@@ -33,7 +33,8 @@ def index():
 def review():
     return head('Step 1 · Reader bonuses')+f'''<main><div class="steps"><span class="dot on">1</span><span class="bar"></span><span class="dot">2</span><span class="step-label">&nbsp;Step 1 of 2</span></div>
 <h1>A quick <em>favor</em> first</h1>
-<p class="lead">An honest review on Amazon helps other readers find a book that gets their handwriting where they want it. Two lines are enough: what helped you, and what you would like to see improved.</p>
+<p class="lead">This book has no publisher behind it, only word of mouth. Two honest lines on Amazon help the next reader decide: what helped you, and what you would like to see improved.</p>
+<div class="photo"><span class="cam"><svg viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></span><p><b>Add a photo or a short video.</b> Your before and after sample, a page you filled in, a card you wrote: in a handwriting book, that is what readers look at first.</p></div>
 <!-- REVIEW LINK: set ASIN in build.py once the paperback is live -->
 <a class="btn shine" id="review" href="{REVIEW}" target="_blank" rel="noopener"><span class="star">★</span> Write my review on Amazon {OUT}</a>
 <div class="reveal" id="after"><div class="panel" style="margin-top:6px">
@@ -63,7 +64,7 @@ def bonus():
 <p class="mute">Print every PDF at 100% (Actual size) on US Letter paper.</p>
 <div class="lockbox" id="lock"><p><b>Almost there.</b> The bonuses unlock after step 1.</p>
 <a class="btn small" href="review.html">Go to step 1 {ARROW}</a></div>
-<div class="panel nudge" id="nudge"><p style="margin:0 0 4px"><b>Sure you left your review?</b> If you have not posted it yet, it takes two minutes and helps other readers find this book. An honest review is all we ask.</p>
+<div class="panel nudge" id="nudge"><p style="margin:0 0 4px"><b>Sure you left your review?</b> If you have not posted it yet, it takes two minutes and helps other readers find this book. A photo of your before and after sample helps most. An honest review is all we ask.</p>
 <a class="btn shine small" href="{REVIEW}" target="_blank" rel="noopener"><span class="star">★</span> Write my review now</a></div>
 <div class="cards" id="items">{''.join(c)}</div>
 </main>{FOOT}
