@@ -56,7 +56,7 @@ def bonus():
     c=[card('Bonus 1','Video lessons',ITEMS[0][1]+' Watch them on your phone next to the practice page.',
             f'<a class="btn small" href="videos.html">Watch the lessons {ARROW}</a><a class="btn small ghost" href="files/video-lessons.zip" download>Download all videos (ZIP, 4 MB) {DOWN}</a>'),
        card('Bonus 2','Printable pack',ITEMS[1][1]+' 42 pages, US Letter.',f'<a class="btn small" href="files/printable-pack.pdf" download>Download the pack (PDF) {DOWN}</a>'),
-       card('Bonus 3','Occasions kit',ITEMS[2][1]+' 26 pages, US Letter.',f'<a class="btn small" href="files/occasions-kit.pdf" download>Download the kit (PDF) {DOWN}</a>'),
+       card('Bonus 3','Occasions kit',ITEMS[2][1]+' 33 pages, US Letter.',f'<a class="btn small" href="files/occasions-kit.pdf" download>Download the kit (PDF) {DOWN}</a>'),
        card('Bonus 4','52 Weeks of Lines Worth Writing',ITEMS[3][1]+' 54 pages, US Letter.',f'<a class="btn small" href="files/52-weeks.pdf" download>Download the year (PDF) {DOWN}</a>'),
        card('Bonus 5','Practice Sheet Maker',ITEMS[4][1],f'<a class="btn small" href="sheet-maker.html">Make a sheet {ARROW}</a>')]
     return head('Step 2 · Your bonuses')+f'''<main><div class="steps"><span class="dot done">1</span><span class="bar done"></span><span class="dot on">2</span><span class="step-label">&nbsp;Step 2 of 2</span></div>

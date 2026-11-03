@@ -22,7 +22,7 @@ label{display:block;font-weight:600;margin:14px 0 6px}
 label:first-child{margin-top:0}
 textarea{width:100%;min-height:96px;font:16px/1.4 system-ui,sans-serif;padding:8px;border:1px solid #cfcdc6;border-radius:6px;resize:vertical}
 .seg{display:flex;flex-wrap:wrap;gap:6px}
-.seg button{flex:1 1 auto;border:1px solid #cfcdc6;background:#fff;padding:7px 8px;border-radius:6px;cursor:pointer;font:13px system-ui,sans-serif;color:var(--ink)}
+.seg button{flex:1 1 auto;min-height:44px;border:1px solid #cfcdc6;background:#fff;padding:7px 8px;border-radius:6px;cursor:pointer;font:13px system-ui,sans-serif;color:var(--ink)}
 .seg button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
 .row{display:flex;gap:10px}.row>div{flex:1}
 input[type=number]{width:100%;padding:7px;border:1px solid #cfcdc6;border-radius:6px;font:14px system-ui,sans-serif}
@@ -30,12 +30,13 @@ input[type=number]{width:100%;padding:7px;border:1px solid #cfcdc6;border-radius
 .warn{color:#9b2c1d;font-size:13px;margin-top:8px;min-height:1em}
 .print{margin-top:18px;width:100%;padding:12px;border:0;border-radius:8px;background:var(--accent);color:#fff;font:600 15px system-ui,sans-serif;cursor:pointer}
 .sheetwrap{background:#e9e7e1;border-radius:10px;padding:18px;overflow:hidden}
-#sheet{width:100%;height:auto;display:block;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.15)}
+.sheet{width:100%;height:auto;display:block;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.15);margin-bottom:18px}
+.pgno{font:12px system-ui,sans-serif;color:var(--muted);margin:0 0 6px}
 @media (max-width:820px){main{grid-template-columns:1fr}.panel{position:static}}
 @media print{
   @page{size:letter;margin:0}
   body{background:#fff}header,.panel,.topbar,footer{display:none}main{display:block;padding:0;max-width:none}
-  .sheetwrap{padding:0;background:none;border-radius:0}#sheet{width:8.5in;height:11in;box-shadow:none}
+  .sheetwrap{padding:0;background:none;border-radius:0}.sheet{width:8.5in;height:11in;box-shadow:none;margin:0;break-after:page;page-break-after:always}.sheet:last-of-type{break-after:auto;page-break-after:auto}.pgno{display:none}
 }
 </style>
 </head>
@@ -50,14 +51,14 @@ input[type=number]{width:100%;padding:7px;border:1px solid #cfcdc6;border-radius
 <div class="panel">
   <label for="txt">Your words, one per line</label>
   <textarea id="txt" spellcheck="false">Emma Thistlewood
-Thank you so much
-21 Elm St Apt 3</textarea>
-  <div class="hint">Letters, numbers and . , ; : ' - / ? ! are supported.</div>
+Thank you so much</textarea>
+  <div class="hint">Letters, numbers and . , ; : ' - / ? ! are supported. Accents are left off: add them by hand.</div>
   <label>Size</label>
   <div class="seg" id="size">
     <button data-v="0.375" aria-pressed="true">Practice 3/8 in</button>
     <button data-v="0.25" aria-pressed="false">Two-thirds 1/4 in</button>
     <button data-v="0.1875" aria-pressed="false">Small 3/16 in</button>
+    <button data-v="0.125" aria-pressed="false">Everyday 1/8 in</button>
   </div>
   <label>Slant</label>
   <div class="seg" id="slant">
@@ -69,7 +70,7 @@ Thank you so much
     <div><label for="trace">Grey rows</label><input id="trace" type="number" min="0" max="12" value="2"></div>
     <div><label for="blank">Empty rows</label><input id="blank" type="number" min="0" max="12" value="1"></div>
   </div>
-  <div class="hint">For each line of words: one black model, then the grey rows to trace, then empty rows. The page fills in order.</div>
+  <div class="hint">For each line of words: one black model, then the grey rows to trace, then empty rows. More lines add more pages.</div>
   <label>Start dots</label>
   <div class="seg" id="dots">
     <button data-v="1" aria-pressed="true">Show</button>
@@ -79,7 +80,7 @@ Thank you so much
   <button class="print" id="print">Print or save as PDF</button>
   <div class="hint">Print on Letter paper at 100% (Actual size).</div>
 </div>
-<div class="sheetwrap"><svg id="sheet" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8.5 11"></svg></div>
+<div class="sheetwrap" id="sheets"></div>
 </main>
 <footer>Emma R. Thistlewood · Handwriting Worth Signing · reader bonuses, for your own practice</footer>
 <script src="glyphs.js"></script>
@@ -94,7 +95,13 @@ seg('size',v=>S.k=+v);seg('slant',v=>S.upright=v=='upright');seg('dots',v=>S.dot
 ['txt','trace','blank'].forEach(id=>$(id).addEventListener('input',draw));
 $('print').onclick=()=>window.print();
 const X0=0.75,X1=7.75,TOP=0.85,BOT=10.45,NS='http://www.w3.org/2000/svg';
-function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);(p||$('sheet')).appendChild(e);return e;}
+let CUR=null;
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);(p||CUR).appendChild(e);return e;}
+function newPage(n){const lab=document.createElement('p');lab.className='pgno';lab.textContent='Page '+n;$('sheets').appendChild(lab);
+  const svg=document.createElementNS(NS,'svg');svg.setAttribute('class','sheet');svg.setAttribute('viewBox','0 0 8.5 11');$('sheets').appendChild(svg);CUR=svg;
+  el('rect',{x:0,y:0,width:8.5,height:11,fill:'#fff'});
+  const t=el('text',{x:4.25,y:10.6,'font-size':0.11,'text-anchor':'middle',fill:'#9a9a9a','font-family':'Helvetica,Arial,sans-serif'});t.textContent='Handwriting Worth Signing  |  Practice Sheet Maker  |  page '+n;
+  return el('g',{});}
 function hl(g,y,c,w,dash){el('line',{x1:X0,x2:X1,y1:y,y2:y,stroke:c,'stroke-width':w,'stroke-dasharray':dash||''},g);}
 function guides(g,y,k,sl){ // y = baseline in page coords (down positive)
   hl(g,y,'#555',0.009);hl(g,y-k,'#9a9a9a',0.008,(0.05)+' '+(0.035));hl(g,y-1.8*k,'#cfcfcf',0.008,'0.012 0.03');hl(g,y+0.85*k,'#cfcfcf',0.008,'0.012 0.03');
@@ -109,28 +116,25 @@ function write(g,t,x,y,k,color,dots){const r=HWS.line(t);const w=Math.max(0.085*
   if(dots)for(const p of r.starts){const [a,b]=tr(p);el('circle',{cx:a,cy:b,r:Math.max(0.045*k/0.375,0.02),fill:'#8c8c8c',stroke:'#fff','stroke-width':0.006},g);}
   return r.x1*k;}
 function draw(){
-  const svg=$('sheet');svg.innerHTML='';HWS.setSlant(S.upright?0:HWS.SLANT0);const sl=S.upright?0:HWS.SLANT0;
-  el('rect',{x:0,y:0,width:8.5,height:11,fill:'#fff'});
+  $('sheets').innerHTML='';HWS.setSlant(S.upright?0:HWS.SLANT0);const sl=S.upright?0:HWS.SLANT0;
   const k=S.k,pitch=3.0*k,trace=Math.max(0,Math.min(12,+$('trace').value||0)),blank=Math.max(0,Math.min(12,+$('blank').value||0));
-  const t=el('text',{x:4.25,y:10.75,'font-size':0.11,'text-anchor':'middle',fill:'#9a9a9a','font-family':'Helvetica,Arial,sans-serif'});t.textContent='Handwriting Worth Signing  |  Practice Sheet Maker';
-  const raw=$('txt').value.split('\n').map(s=>s.replace(/[‘’]/g,"'").trim()).filter(Boolean);
-  const bad=new Set();const ok=s=>[...s].filter(c=>{const g=c==' '||(c in HWS_DATA.G);if(!g)bad.add(c);return g;}).join('');
-  const lines=[];raw.forEach(s=>wrapWords(ok(s),k,X1-X0-0.2).forEach(l=>lines.push(l)));
-  $('warn').textContent=bad.size?('Left out: '+[...bad].join(' ')):'';
-  let y=TOP+1.8*k+0.1,g=el('g',{});let any=false;const done=new Set();
-  const fits=()=>y+0.85*k<=BOT;
-  outer: for(let pass=0;pass<50;pass++){
-    for(const l of lines){
-      const rows=[['model']].concat(Array(trace).fill(['grey']),Array(blank).fill(['empty']));
-      for(const [kind] of rows){if(!fits())break outer;guides(g,y,k,sl);
-        if(kind=='model')write(g,l,X0+0.1,y,k,'#1d1d1b',false);else if(kind=='grey')write(g,l,X0+0.1,y,k,'#8a8a8a',S.dots);
-        y+=pitch;any=true;}
-      done.add(l);
-    }
-    if(!lines.length){while(fits()){guides(g,y,k,sl);y+=pitch;}break;}
-  }
-  const miss=lines.filter(l=>!done.has(l)).length;
-  if(miss)$('warn').textContent=($('warn').textContent?$('warn').textContent+'. ':'')+miss+' of '+lines.length+' lines did not fit on this page: use fewer rows, a smaller size, or print it again with those lines.';
+  const raw=$('txt').value.split('\n').map(s=>s.replace(/[\u2018\u2019]/g,"'").trim()).filter(Boolean);
+  const bad=new Set(),acc=new Set();
+  const ok=s=>[...s].map(c=>{if(c==' '||(c in HWS_DATA.G))return c;const b=c.normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+      if(b.length==1&&(b in HWS_DATA.G)){acc.add(c);return b;}bad.add(c);return '';}).join('').replace(/\s+/g,' ');
+  const W=X1-X0-0.2;const lines=[];const long=new Set();
+  raw.forEach(s=>wrapWords(ok(s),k,W).forEach(l=>{lines.push(l);if(HWS.line(l).x1*k>W)long.add(l.split(' ')[0]);}));
+  const msg=[];if(acc.size)msg.push('Accents left off ('+[...acc].join(' ')+'): add them by hand.');
+  if(bad.size)msg.push('Left out: '+[...bad].join(' '));
+  if(long.size)msg.push('Too long for one line at this size: '+[...long].join(', ')+'. Choose a smaller size.');
+  $('warn').textContent=msg.join(' ');
+  let n=1,g=newPage(n),y=TOP+1.8*k+0.1;const fits=()=>y+0.85*k<=BOT;
+  const rows=[['model']].concat(Array(trace).fill(['grey']),Array(blank).fill(['empty']));
+  const row=(kind,l)=>{guides(g,y,k,sl);if(kind=='model')write(g,l,X0+0.1,y,k,'#1d1d1b',false);else if(kind=='grey')write(g,l,X0+0.1,y,k,'#8a8a8a',S.dots);y+=pitch;};
+  if(!lines.length){while(fits())row('empty','');return;}
+  for(const l of lines){if(y+rows.length*pitch-pitch+0.85*k>BOT&&y>TOP+1.8*k+0.2){n++;g=newPage(n);y=TOP+1.8*k+0.1;}
+    for(const [kind] of rows){if(!fits()){n++;g=newPage(n);y=TOP+1.8*k+0.1;}row(kind,l);}}
+  let q=0;while(fits()&&q<200){const l=lines[q%lines.length];for(const [kind] of rows){if(!fits())break;row(kind,l);}q++;}
 }
 draw();
 </script>
