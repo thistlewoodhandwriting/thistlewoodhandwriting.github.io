@@ -1,6 +1,6 @@
 """Builds the bonus site pages (python3 build.py). Edit BOOK or ASIN here, then rebuild."""
 import os, re, glob
-BOOK='Sign Here! The Cursive Course for Adults'; AUTHOR='Emma R. Thistlewood'
+BOOK='Sign Here! The Cursive and Modern Calligraphy Course for Adults'; AUTHOR='Emma R. Thistlewood'
 ASIN='ASIN_PLACEHOLDER'   # set to the paperback ASIN once the book is live
 REVIEW=f'https://www.amazon.com/review/create-review?asin={ASIN}'
 ARROW='<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
@@ -12,7 +12,7 @@ def head(title):
 <title>{title}</title><meta name="description" content="Reader bonuses for {BOOK} by {AUTHOR}.">
 <meta property="og:title" content="{BOOK}: reader bonuses"><link rel="icon" href="{ICON}">
 <link rel="stylesheet" href="css/style.css"></head><body>
-<div class="topbar"><div class="in"><a class="brand" href="index.html">Sign Here! <i>The Cursive Course for Adults</i></a><span class="who">Reader bonuses</span></div></div>
+<div class="topbar"><div class="in"><a class="brand" href="index.html">Sign Here! <i>The Cursive and Modern Calligraphy Course for Adults</i></a><span class="who">Reader bonuses</span></div></div>
 '''
 FOOT=f'''<footer><span class="who">{AUTHOR}</span>{BOOK} · reader bonuses, for your own practice</footer>'''
 ITEMS=[('Video lessons','Watch all 155 letters, joins, capitals, numbers and brush strokes of the book being written, stroke by stroke.'),

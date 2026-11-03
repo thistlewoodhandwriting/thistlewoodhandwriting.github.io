@@ -1,4 +1,4 @@
-// Everyday hand of "Sign Here! The Cursive Course for Adults": a direct port of layout/proto/joins.py (lay) to JavaScript.
+// Everyday hand of "Sign Here! The Cursive and Modern Calligraphy Course for Adults": a direct port of layout/proto/joins.py (lay) to JavaScript.
 // Design units: x-height 1, unslanted; slant applied at the end.
 (function(root){
 const E={};
