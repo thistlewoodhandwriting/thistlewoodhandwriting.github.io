@@ -1,7 +1,7 @@
 """Builds the bonus site pages (python3 build.py). Edit BOOK or ASIN here, then rebuild."""
 import os, re, glob
 BOOK='Sign Here! The Cursive and Modern Calligraphy Course for Adults'; AUTHOR='Emma R. Thistlewood'
-ASIN='ASIN_PLACEHOLDER'   # set to the paperback ASIN once the book is live
+ASIN='B0HQ8RVCRR'   # paperback, live 2026-11-04
 REVIEW=f'https://www.amazon.com/review/create-review?asin={ASIN}'
 ARROW='<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
 OUT='<svg viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg>'
